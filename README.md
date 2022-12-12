@@ -23,7 +23,7 @@ YouCube streams media from services like YouTube to [ComputerCraft: Tweaked](htt
 
 ![preview](.README/preview-client.png)
 
-.README/YouCube_Example_1.mp4
+https://user-images.githubusercontent.com/49335821/207105983-f3887269-51d2-4ea2-b8f5-4c4af87ccad4.mp4
 
 The client can be installed by running the following command:
 
