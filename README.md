@@ -23,6 +23,8 @@ YouCube streams media from services like YouTube to [ComputerCraft: Tweaked](htt
 
 ![preview](.README/preview-client.png)
 
+.README/YouCube_Example_1.mp4
+
 The client can be installed by running the following command:
 
 ```shell
@@ -55,14 +57,7 @@ All libraries that are used by the [client](https://github.com/Commandcracker/Yo
 #### UnicornPKG (Experimental)
 
 YouCube can be installed with [unicornpkg](https://unicornpkg.madefor.cc/). \
-Just install the Dependencies and then run `hoof install youcube`
-
-##### Dependencies
-
-- `hoof install numberformatter`
-- `hoof install youcubeapi`
-- `hoof install semver`
-- `wget https://raw.githubusercontent.com/Commandcracker/YouCube/main/client/lib/argparse.lua /lib/argparse.lua`
+Just run `hoof install youcube` to install it.
 
 #### LevelOS / lStore
 
