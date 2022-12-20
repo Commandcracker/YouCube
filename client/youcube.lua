@@ -97,6 +97,11 @@ parser:flag "--na" "--no-audio"
     :target "no_audio"
     :action "store_true"
 
+parser:flag "--sh" "--shuffle"
+    :description "Shuffles audio before playing"
+    :target "shuffle"
+    :action "store_true"
+
 parser:flag "-l" "--loop"
     :description "Loops the media."
     :target "loop"
@@ -444,6 +449,14 @@ local function play(url)
 end
 
 local function play_playlist(playlist)
+    if args.shuffle then
+        local shuffled = {}
+        for i, v in pairs(playlist) do
+	        local pos = math.random(1, #shuffled+1)
+	        table.insert(shuffled, pos, v)
+        end
+        playlist = shuffled
+    end
     for _, id in pairs(playlist) do
         play(id)
     end
