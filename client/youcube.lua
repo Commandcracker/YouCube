@@ -491,6 +491,12 @@ local function play_playlist(playlist)
                             libs.youcubeapi.reset_term()
                         end
                         break
+                    elseif key == (settings.get("youcube.keys.restart") or keys.r) then
+                        table.insert(playlist, pl) --add the current song to upcoming
+                        if not args.no_video then
+                            libs.youcubeapi.reset_term()
+                        end
+                        break
                     end
                 end
             end,
