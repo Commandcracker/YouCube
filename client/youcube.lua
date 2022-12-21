@@ -446,11 +446,11 @@ local function play(url)
         end,
         function()
             while true do
-                local _,key = os.pullEvent("key")
+                local _, key = os.pullEvent("key")
                 if key == (settings.get("youcube.keys.skip") or keys.d) then
-                    table.insert(back_buffer,url) --finished playing, push the value to the back buffer
+                    table.insert(back_buffer, url) --finished playing, push the value to the back buffer
                     if #back_buffer > max_back then
-                        table.remove(back_buffer,1) --remove it from the front of the buffer
+                        table.remove(back_buffer, 1) --remove it from the front of the buffer
                     end
                     break
                 end
@@ -508,7 +508,7 @@ local function main()
         args.URL = read()
         term.setTextColor(colors.white)
     end
-    
+
     local playlist_videos = play(args.URL)
 
     if args.loop == true then
@@ -528,6 +528,11 @@ local function main()
     end
 
     youcubeapi.websocket.close()
+
+    if not args.no_video then
+        libs.youcubeapi.reset_term()
+    end
+
     os.queueEvent("youcube:playback_ended")
 end
 
