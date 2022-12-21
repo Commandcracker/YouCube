@@ -330,10 +330,15 @@ local function play_audio(buffer, title)
     end
 end
 
+-- #region playback controll vars
 local back_buffer = {}
 local max_back = settings.get("youcube.buffer_size") or 32
 local queue = {}
+local restart = false
+-- #endregion
+
 local function play(url)
+    restart = false
     print("Requesting media ...")
 
     if not args.no_video then
@@ -471,6 +476,7 @@ local function play(url)
                     if not args.no_video then
                         libs.youcubeapi.reset_term()
                     end
+                    restart = true
                     break
                 end
             end
@@ -548,6 +554,10 @@ local function main()
             end
         end
         play_playlist(playlist_videos)
+    end
+
+    while restart do
+        play(args.URL)
     end
 
     youcubeapi.websocket.close()
