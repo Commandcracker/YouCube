@@ -324,7 +324,7 @@ local back_buffer = {}
 local max_back = settings.get("youcube.buffer_size") or 32
 
 local function play(url)
-    print("Requesting media ...")
+    print(" media ...")
 
     if not args.no_video then
         youcubeapi:request_media(url, term.getSize())
@@ -480,7 +480,10 @@ local function play_playlist(playlist)
                     local _, key = os.pullEvent("key")
                     if (key == settings.get("youcube.keys.back")) or (key == keys.a) then
                         table.insert(playlist,pl) --add the current song to upcoming
-                        table.insert(playlist,table.remove(back_buffer)) --add previous song to upcoming
+                        local prev = table.remove(back_buffer)
+                        if prev then --nil/false check
+                            table.insert(playlist,prev) --add previous song to upcoming
+                        end
                         break
                     end
                 end
