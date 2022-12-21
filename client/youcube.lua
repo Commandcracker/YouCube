@@ -7,7 +7,7 @@ Github Repository: https://github.com/Commandcracker/YouCube
 License: GPL-3.0
 ]]
 
-local _VERSION = "0.0.0-poc.0.3.0"
+local _VERSION = "0.0.0-poc.0.3.1"
 
 -- Libraries - OpenLibrarieLoader v1.0.0 --
 
@@ -452,8 +452,8 @@ local function play_playlist(playlist)
     if args.shuffle then
         local shuffled = {}
         for i, v in pairs(playlist) do
-	        local pos = math.random(1, #shuffled+1)
-	        table.insert(shuffled, pos, v)
+            local pos = math.random(1, #shuffled + 1)
+            table.insert(shuffled, pos, v)
         end
         playlist = shuffled
     end
