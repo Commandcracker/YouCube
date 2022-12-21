@@ -320,6 +320,9 @@ local function play_audio(buffer, title)
     end
 end
 
+local back_buffer = {}
+local max_back = settings.get("youcube.buffer_size") or 32
+
 local function play(url)
     print("Requesting media ...")
 
@@ -440,6 +443,18 @@ local function play(url)
                     end
                 end
             )
+        end,
+        function()
+            while true do
+                local _,key = os.pullEvent("key")
+                if key == (settings.get("youcube.keys.skip") or keys.d) then
+                    table.insert(back_buffer,url) --finished playing, push the value to the back buffer
+                    if #back_buffer > max_back then
+                        table.remove(back_buffer,1) --remove it from the front of the buffer
+                    end
+                    break
+                end
+            end
         end
     )
 
@@ -457,8 +472,23 @@ local function play_playlist(playlist)
         end
         playlist = shuffled
     end
-    for _, id in pairs(playlist) do
-        play(id)
+    while #playlist ~= 0 do
+        local pl = table.remove(playlist)
+        parallel.waitForAny(
+            function()
+                while true do
+                    local _, key = os.pullEvent("key")
+                    if (key == settings.get("youcube.keys.back")) or (key == keys.a) then
+                        table.insert(playlist,pl) --add the current song to upcoming
+                        table.insert(playlist,table.remove(back_buffer)) --add previous song to upcoming
+                        break
+                    end
+                end
+            end,
+            function()
+                play(pl) --play the url
+            end
+        )
     end
 end
 
@@ -475,15 +505,16 @@ local function main()
         args.URL = read()
         term.setTextColor(colors.white)
     end
-
+    print("getting playlist vids")
     local playlist_videos = play(args.URL)
 
+    print("looping")
     if args.loop == true then
         while true do
             play(args.URL)
         end
     end
-
+    print("playlist play")
     if playlist_videos then
         if args.loop_playlist == true then
             while true do
