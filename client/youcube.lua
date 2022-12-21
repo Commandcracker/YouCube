@@ -114,6 +114,16 @@ parser:flag "--lp" "--loop-playlist"
 
 local args = parser:parse { ... }
 
+local debugger = peripheral.find("debugger")
+function debug(...)
+    if args.verbose then
+        print(...)
+    end
+    if debugger then
+        debugger.print(...)
+    end
+end
+
 if args.volume then
     args.volume = tonumber(args.volume)
     if args.volume == nil then
