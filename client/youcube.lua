@@ -478,7 +478,7 @@ local function play_playlist(playlist)
             function()
                 while true do
                     local _, key = os.pullEvent("key")
-                    if (key == settings.get("youcube.keys.back")) or (key == keys.a) then
+                    if key == (settings.get("youcube.keys.back") or keys.a) then
                         table.insert(playlist,pl) --add the current song to upcoming
                         local prev = table.remove(back_buffer)
                         if prev then --nil/false check
