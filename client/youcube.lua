@@ -505,7 +505,7 @@ local function main()
         args.URL = read()
         term.setTextColor(colors.white)
     end
-    
+
     local playlist_videos = play(args.URL)
 
     if args.loop == true then
