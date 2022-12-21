@@ -446,11 +446,11 @@ local function play(url)
         end,
         function()
             while true do
-                local _,key = os.pullEvent("key")
+                local _, key = os.pullEvent("key")
                 if key == (settings.get("youcube.keys.skip") or keys.d) then
-                    table.insert(back_buffer,url) --finished playing, push the value to the back buffer
+                    table.insert(back_buffer, url) --finished playing, push the value to the back buffer
                     if #back_buffer > max_back then
-                        table.remove(back_buffer,1) --remove it from the front of the buffer
+                        table.remove(back_buffer, 1) --remove it from the front of the buffer
                     end
                     break
                 end
@@ -478,9 +478,9 @@ local function play_playlist(playlist)
             function()
                 while true do
                     local _, key = os.pullEvent("key")
-                    if (key == settings.get("youcube.keys.back")) or (key == keys.a) then
-                        table.insert(playlist,pl) --add the current song to upcoming
-                        table.insert(playlist,table.remove(back_buffer)) --add previous song to upcoming
+                    if settings and key == settings.get("youcube.keys.back") or key == keys.a then
+                        table.insert(playlist, pl) --add the current song to upcoming
+                        table.insert(playlist, table.remove(back_buffer)) --add previous song to upcoming
                         break
                     end
                 end
