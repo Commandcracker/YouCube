@@ -332,7 +332,7 @@ end
 
 local back_buffer = {}
 local max_back = settings.get("youcube.buffer_size") or 32
-
+local queue = {}
 local function play(url)
     print("Requesting media ...")
 
@@ -466,6 +466,12 @@ local function play(url)
                         libs.youcubeapi.reset_term()
                     end
                     break
+                elseif key == (settings.get("youcube.keys.restart") or keys.r) then
+                    table.insert(queue, url) --add the current song to upcoming
+                    if not args.no_video then
+                        libs.youcubeapi.reset_term()
+                    end
+                    break
                 end
             end
         end
@@ -477,32 +483,27 @@ local function play(url)
 end
 
 local function play_playlist(playlist)
+    queue = playlist
     if args.shuffle then
         local shuffled = {}
-        for i, v in pairs(playlist) do
+        for i, v in pairs(queue) do
             local pos = math.random(1, #shuffled + 1)
             table.insert(shuffled, pos, v)
         end
-        playlist = shuffled
+        queue = shuffled
     end
-    while #playlist ~= 0 do
-        local pl = table.remove(playlist)
+    while #queue ~= 0 do
+        local pl = table.remove(queue)
         parallel.waitForAny(
             function()
                 while true do
                     local _, key = os.pullEvent("key")
                     if key == (settings.get("youcube.keys.back") or keys.a) then
-                        table.insert(playlist, pl) --add the current song to upcoming
+                        table.insert(queue, pl) --add the current song to upcoming
                         local prev = table.remove(back_buffer)
                         if prev then --nil/false check
-                            table.insert(playlist, prev) --add previous song to upcoming
+                            table.insert(queue, prev) --add previous song to upcoming
                         end
-                        if not args.no_video then
-                            libs.youcubeapi.reset_term()
-                        end
-                        break
-                    elseif key == (settings.get("youcube.keys.restart") or keys.r) then
-                        table.insert(playlist, pl) --add the current song to upcoming
                         if not args.no_video then
                             libs.youcubeapi.reset_term()
                         end
