@@ -525,6 +525,12 @@ local function main()
     end
 
     youcubeapi.websocket.close()
+
+    -- reset color palette
+    for i = 0, 15 do
+        term.setPaletteColor(2 ^ i, term.nativePaletteColor(2 ^ i))
+    end
+
     os.queueEvent("youcube:playback_ended")
 end
 
