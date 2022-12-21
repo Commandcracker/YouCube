@@ -505,16 +505,14 @@ local function main()
         args.URL = read()
         term.setTextColor(colors.white)
     end
-    print("getting playlist vids")
+    
     local playlist_videos = play(args.URL)
 
-    print("looping")
     if args.loop == true then
         while true do
             play(args.URL)
         end
     end
-    print("playlist play")
     if playlist_videos then
         if args.loop_playlist == true then
             while true do
