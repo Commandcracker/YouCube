@@ -7,7 +7,7 @@ Github Repository: https://github.com/Commandcracker/YouCube
 License: GPL-3.0
 ]]
 
-local _VERSION = "0.0.0-poc.0.3.1"
+local _VERSION = "0.0.0-poc.0.4.0"
 
 -- Libraries - OpenLibrarieLoader v1.0.0 --
 
@@ -113,16 +113,6 @@ parser:flag "--lp" "--loop-playlist"
     :action "store_true"
 
 local args = parser:parse { ... }
-
-local debugger = peripheral.find("debugger")
-function debug(...)
-    if args.verbose then
-        print(...)
-    end
-    if debugger then
-        debugger.print(...)
-    end
-end
 
 if args.volume then
     args.volume = tonumber(args.volume)
@@ -332,7 +322,7 @@ end
 
 -- #region playback controll vars
 local back_buffer = {}
-local max_back = settings.get("youcube.buffer_size") or 32
+local max_back = settings.get("youcube.max_back") or 32
 local queue = {}
 local restart = false
 -- #endregion

@@ -590,7 +590,7 @@ return {
     --- "Metadata" - [YouCube API](https://commandcracker.github.io/YouCube/) Version
     _API_VERSION = "0.0.0-poc.1.0.0",
     --- "Metadata" - Library Version
-    _VERSION     = "0.0.0-poc.1.0.2",
+    _VERSION     = "0.0.0-poc.1.1.0",
     --- "Metadata" - Description
     _DESCRIPTION = "Library for accessing YouCub's API",
     --- "Metadata" - Homepage / Url

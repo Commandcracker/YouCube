@@ -76,7 +76,7 @@ Settings that can be set with the CC: Tweaked [settings module](https://tweaked.
 | `youcube.server`      |         | First server that should be used                |
 | `youcube.keys.skip`   |   32 (d)|Key code to skip song                            |
 | `youcube.keys.back`   |   30 (a)|Key code to head to previous song                |
-| `youcube.buffer_size` |   32    |Maximum ammount of songs that can be gone back to|
+| `youcube.max_back`    |   32    |Maximum ammount of songs that can be gone back to|
 
 #### Events
 
